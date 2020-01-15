@@ -1,6 +1,9 @@
 import React from "react";
 import Head from "next/head";
 
+/**
+ * Meta tag for the app
+ */
 class Meta extends React.Component {
   render() {
     return (

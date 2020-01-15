@@ -6,6 +6,10 @@ import { newDataRetrieved, dataFromName } from "../utils/helpers";
 
 const Center = styled.div`
   text-align: center;
+  margin-bottom: 20px;
+  #isLoading {
+    font-size: 2rem;
+  }
 `;
 
 const ItemsList = styled.div`
@@ -14,28 +18,63 @@ const ItemsList = styled.div`
   grid-gap: 60px;
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
-  @media screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    grid-gap: 30px;
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+    max-width: 600px;
   }
 `;
 
 class Items extends React.Component {
   state = {
     items: [],
-    scrollCounter: 1
+    scrollCounter: 1,
+    isLoading: false
   };
 
+  /**
+   * Filtering by name when the searchValue props is
+   * changed.
+   */
+  filterByName() {
+    let filterData = this.state.items.filter(e =>
+      e.name.includes(this.props.searchValue)
+    );
+    if (filterData.length === 0) {
+      dataFromName(this.props.searchValue, this.state.scrollCounter).then(
+        res => {
+          this.setState({
+            items: res.items,
+            scrollCounter: 1,
+            isLoading: false
+          });
+        }
+      );
+    } else {
+      this.setState({ items: filterData, scrollCounter: 1 });
+    }
+  }
+
   componentDidMount() {
+    //When the scroll is at the bottom this fuction is triggered
     window.onscroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        console.log(this.state.scrollCounter);
-        this.setState({ scrollCounter: this.state.scrollCounter + 1 });
-        newDataRetrieved(this.state.scrollCounter).then(data => {
-          this.setState({ items: data.items });
-        });
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 50
+      ) {
+        this.setState({ isLoading: true });
+        if (this.props.searchValue.length > 0) {
+          this.filterByName();
+        } else {
+          this.setState({ scrollCounter: this.state.scrollCounter + 1 });
+          newDataRetrieved(this.state.scrollCounter).then(data => {
+            this.setState({ items: data.items, isLoading: false });
+          });
+        }
       }
     };
 
@@ -48,23 +87,15 @@ class Items extends React.Component {
     window.onscroll = null;
   }
 
+  /**
+   * This function catches the searchValue props
+   * when the Search component is triggered
+   */
   componentWillReceiveProps() {
     if (this.props.searchValue.length > 0) {
-      console.log(this.props.searchValue.length);
-      let filterData = this.state.items.filter(e =>
-        e.name.includes(this.props.searchValue)
-      );
-      if (filterData.length === 0) {
-        dataFromName(this.props.searchValue, this.state.scrollCounter).then(
-          res => {
-            this.setState({ items: res.items, scrollCounter: 1 });
-          }
-        );
-      } else {
-        this.setState({ items: filterData, scrollCounter: 1 });
-      }
+      this.filterByName();
     }
-    if (this.props.searchValue.length <= 1) {
+    if (this.props.searchValue.length <= 2) {
       newDataRetrieved(this.state.scrollCounter).then(data => {
         this.setState({ items: data.items });
       });
@@ -72,12 +103,16 @@ class Items extends React.Component {
   }
 
   render() {
-    const { items } = this.state;
+    const { items, isLoading } = this.state;
     return (
       <Center>
         <ItemsList>
           {items.length > 0 && items.map(e => <Item key={e.id} item={e} />)}
         </ItemsList>
+        {isLoading && <p id="isLoading">Loading...</p>}
+        {!isLoading && items.length === 0 && (
+          <p>There are not curses available</p>
+        )}
       </Center>
     );
   }

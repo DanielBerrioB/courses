@@ -11,6 +11,8 @@
   "author": "Daniel Berrío Barrera",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.8.3",
+    "babel-plugin-styled-components": "^1.10.6",
     "lodash.debounce": "^4.0.8",
     "next": "^9.1.7",
     "react": "^16.12.0",
@@ -39,6 +41,27 @@
       "production": {
         "presets": [
           "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
         ],
         "plugins": [
           [

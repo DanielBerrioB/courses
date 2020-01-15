@@ -8,7 +8,7 @@ class Item extends React.Component {
       <ItemStyles>
         <div className="top">
           <img
-            src="https://images.freeimages.com/images/small-previews/b5a/dragon-fly-1391358.jpg"
+            src="https://images.unsplash.com/photo-1546448396-6aef80193ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
             alt="Simple"
           />
           <span>{item.maximumCredits} credits</span>

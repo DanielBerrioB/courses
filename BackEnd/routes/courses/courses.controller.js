@@ -24,6 +24,8 @@ function getAllCourses(req, res) {
           });
         }
       });
+  //If there is a current client it reuses in order to save the topolgy
+  //otherwise it creates a new one
   if (isAnyConnection(client)) {
     const dataBase = client.db(DBName);
     fun(dataBase);
@@ -59,6 +61,8 @@ function getCoursesByName(req, res) {
             });
           }
         });
+    //If there is a current client it reuses in order to save the topolgy
+    //otherwise it creates a new one
     if (isAnyConnection(client)) {
       const dataBase = client.db(DBName);
       fun(dataBase);
@@ -208,6 +212,8 @@ function editCourse(req, res) {
             });
           }
         });
+    //If there is a current client it reuses in order to save the topolgy
+    //otherwise it creates a new one
     if (isAnyConnection(client)) {
       const dataBase = client.db(DBName);
       fun(dataBase);
@@ -249,6 +255,8 @@ function deleteCourse(req, res) {
             });
           }
         });
+    //If there is a current client it reuses in order to save the topolgy
+    //otherwise it creates a new one
     if (isAnyConnection(client)) {
       const dataBase = client.db(DBName);
       fun(dataBase);

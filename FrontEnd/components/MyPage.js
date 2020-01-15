@@ -18,6 +18,11 @@ const Content = styled.div`
   padding: 2rem;
 `;
 
+/**
+ * This class wraps the provider for Redux, then puts
+ * a standard theme for the app, and finally adds the Meta, the Header 
+ * and the Content components
+ */
 class MainPage extends React.Component {
   render() {
     return (

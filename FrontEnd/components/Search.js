@@ -23,6 +23,8 @@ class Search extends React.Component {
     this.props.updateSearch(this.searchValue.current.value);
   };
 
+  //This function allows to delayed the request which will
+  //be sended after the debounce function ends.
   debounceChange = debounce(this.onHandleChange, 150);
 
   render() {
