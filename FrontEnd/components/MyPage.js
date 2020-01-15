@@ -2,6 +2,8 @@ import React from "react";
 import Meta from "./Meta";
 import Header from "./Header";
 import { theme } from "../utils/theme";
+import { Provider } from "react-redux";
+import store from "../store";
 import styled, { ThemeProvider } from "styled-components";
 
 const StyledMainPage = styled.div`
@@ -19,13 +21,15 @@ const Content = styled.div`
 class MainPage extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <StyledMainPage>
-          <Meta />
-          <Header />
-          <Content>{this.props.children}</Content>
-        </StyledMainPage>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <StyledMainPage>
+            <Meta />
+            <Header />
+            <Content>{this.props.children}</Content>
+          </StyledMainPage>
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
