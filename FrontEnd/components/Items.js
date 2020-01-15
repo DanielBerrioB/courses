@@ -95,7 +95,7 @@ class Items extends React.Component {
     if (this.props.searchValue.length > 0) {
       this.filterByName();
     }
-    if (this.props.searchValue.length <= 2) {
+    if (this.props.searchValue.length <= 1) {
       newDataRetrieved(this.state.scrollCounter).then(data => {
         this.setState({ items: data.items });
       });
@@ -111,7 +111,7 @@ class Items extends React.Component {
         </ItemsList>
         {isLoading && <p id="isLoading">Loading...</p>}
         {!isLoading && items.length === 0 && (
-          <p>There are not curses available</p>
+          <p>There are not courses available</p>
         )}
       </Center>
     );
