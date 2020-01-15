@@ -34,14 +34,20 @@ const ItemStyles = styled.div`
     float: left;
     text-align: left;
     margin-left: 20px;
+    height: 140px;
   }
   .bottom {
     float: left;
-    margin-left: 20px;
+    padding-left: 20px;
     padding-right: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  #price {
+    color: ${props => props.theme.blue};
+    font-size: 2rem;
   }
 `;
 

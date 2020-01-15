@@ -3,24 +3,23 @@ import ItemStyles from "../styles/ItemStyles";
 
 class Item extends React.Component {
   render() {
+    const { item } = this.props;
     return (
       <ItemStyles>
         <div className="top">
           <img
-            src="https://test.mytablemesa.com/Content/uploads/887e9a8d-292d-4db1-924b-c38958712f92.jpg"
+            src="https://images.freeimages.com/images/small-previews/b5a/dragon-fly-1391358.jpg"
             alt="Simple"
           />
-          <span>3 Credits</span>
+          <span>{item.maximumCredits} credits</span>
         </div>
         <div className="body">
-          <h4>Professional Ethics</h4>
-          <p>Balance education</p>
+          <h4>{item.name}</h4>
+          <p>{item.imageText}</p>
         </div>
         <div className="bottom">
-          <p>$14.5</p>
-          <p>
-            Score 1-5: 4.15
-          </p>
+          <p id="price">{item.price === 0 ? "FREE" : `$${item.price}`}</p>
+          <p>Score 1-5: {item.rating}</p>
         </div>
       </ItemStyles>
     );

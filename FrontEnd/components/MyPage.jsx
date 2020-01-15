@@ -7,6 +7,7 @@ import styled, { ThemeProvider } from "styled-components";
 const StyledMainPage = styled.div`
   background-color: white;
   color: ${props => props.theme.black};
+  font-family: "Raleway", sans-serif;
 `;
 
 const Content = styled.div`
